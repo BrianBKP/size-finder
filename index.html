@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dog Bandana Size Finder</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function SizeFinder() {
+            const [method, setMethod] = React.useState('breed');
+            const [size, setSize] = React.useState(null);
+            const [neckSize, setNeckSize] = React.useState('');
+            const [weight, setWeight] = React.useState('');
+            const [selectedBreed, setSelectedBreed] = React.useState('');
+
+            const commonBreeds = {
+                'Beagle': 'Small',
+                'French Bulldog': 'Small',
+                'Pug': 'Small',
+                'Border Collie': 'Medium',
+                'Husky': 'Medium',
+                'Pitbull': 'Medium',
+                'German Shepherd': 'Large',
+                'Golden Retriever': 'Large',
+                'Labrador': 'Large'
+            };
+
+            const getSizeByWeight = (w) => {
+                const weight = parseFloat(w);
+                if (weight <= 25) return 'Small';
+                if (weight <= 55) return 'Medium';
+                return 'Large';
+            };
+
+            const getSizeByNeck = (n) => {
+                const neck = parseFloat(n);
+                if (neck <= 16) return 'Small';
+                if (neck <= 21) return 'Medium';
+                return 'Large';
+            };
+
+            return (
+                <div className="max-w-2xl mx-auto p-6">
+                    <h2 className="text-2xl font-bold mb-6 text-center">Find Your Perfect Fit</h2>
+                    
+                    <div className="flex gap-4 mb-6 justify-center">
+                        <button 
+                            onClick={() => setMethod('breed')}
+                            className={`p-3 rounded-lg ${method === 'breed' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
+                        >
+                            By Breed
+                        </button>
+                        <button 
+                            onClick={() => setMethod('weight')}
+                            className={`p-3 rounded-lg ${method === 'weight' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
+                        >
+                            By Weight
+                        </button>
+                        <button 
+                            onClick={() => setMethod('neck')}
+                            className={`p-3 rounded-lg ${method === 'neck' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
+                        >
+                            By Neck Size
+                        </button>
+                    </div>
+
+                    <div className="mb-6">
+                        {method === 'breed' && (
+                            <select 
+                                value={selectedBreed}
+                                onChange={(e) => {
+                                    setSelectedBreed(e.target.value);
+                                    setSize(commonBreeds[e.target.value]);
+                                }}
+                                className="w-full p-3 border rounded-lg"
+                            >
+                                <option value="">Select your dog's breed</option>
+                                {Object.keys(commonBreeds).map(breed => (
+                                    <option key={breed} value={breed}>{breed}</option>
+                                ))}
+                            </select>
+                        )}
+
+                        {method === 'weight' && (
+                            <input
+                                type="number"
+                                value={weight}
+                                onChange={(e) => {
+                                    setWeight(e.target.value);
+                                    setSize(getSizeByWeight(e.target.value));
+                                }}
+                                placeholder="Enter weight in lbs"
+                                className="w-full p-3 border rounded-lg"
+                            />
+                        )}
+
+                        {method === 'neck' && (
+                            <input
+                                type="number"
+                                value={neckSize}
+                                onChange={(e) => {
+                                    setNeckSize(e.target.value);
+                                    setSize(getSizeByNeck(e.target.value));
+                                }}
+                                placeholder="Enter neck size in inches"
+                                className="w-full p-3 border rounded-lg"
+                            />
+                        )}
+                    </div>
+
+                    {size && (
+                        <div className="bg-green-50 p-4 rounded-lg">
+                            <div className="text-green-600 mb-2">
+                                <span className="font-medium">Recommended Size:</span>
+                            </div>
+                            <p className="text-lg font-bold text-green-700">{size}</p>
+                            <p className="text-sm text-green-600 mt-2">
+                                {size === 'Small' && 'Perfect for necks 12-16"'}
+                                {size === 'Medium' && 'Perfect for necks 16-21"'}
+                                {size === 'Large' && 'Perfect for necks 21-25"'}
+                            </p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<SizeFinder />, document.getElementById('root'));
+    </script>
+</body>
+</html>
