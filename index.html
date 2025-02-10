@@ -18,17 +18,31 @@
             const [selectedBreed, setSelectedBreed] = React.useState('');
 
             const commonBreeds = {
-                'Beagle': 'Small',
-                'French Bulldog': 'Small',
-                'Pug': 'Small',
-                'Border Collie': 'Medium',
-                'Husky': 'Medium',
-                'Pitbull': 'Medium',
-                'German Shepherd': 'Large',
-                'Golden Retriever': 'Large',
-                'Labrador': 'Large'
-            };
-
+    // Small Breeds (12-16")
+    'Beagle': 'Small',
+    'Cavalier King Charles': 'Small',
+    'French Bulldog': 'Small',
+    'Jack Russell': 'Small',
+    'Miniature Poodle': 'Small',
+    'Pug': 'Small',
+    'Shih Tzu': 'Small',
+    'Small Bulldog': 'Small',
+    'Small Great Dane': 'Small',
+    'Small Rottweiler': 'Small',
+    // Medium Breeds (16-21")
+    'Australian Shepherd': 'Medium',
+    'Border Collie': 'Medium',
+    'Husky': 'Medium',
+    'Standard Poodle': 'Medium',
+    'Vizsla': 'Medium',
+    // Large Breeds (21-25")
+    'German Shepherd': 'Large',
+    'Golden Retriever': 'Large',
+    'Golden Doodle': 'Large',
+    'Doberman': 'Large',
+    'Large Bulldog': 'Large',
+    'Labrador Retriever': 'Large'
+};
             const getSizeByWeight = (w) => {
                 const weight = parseFloat(w);
                 if (weight <= 25) return 'Small';
