@@ -58,92 +58,88 @@
             };
 
             return (
-                <div className="max-w-2xl mx-auto p-6">
-                    <h2 className="text-2xl font-bold mb-6 text-center">Find Your Perfect Fit</h2>
-                    
-                    <div className="flex gap-4 mb-6 justify-center">
-                        <button 
-                            onClick={() => setMethod('breed')}
-                            className={`p-3 rounded-lg ${method === 'breed' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
-                        >
-                            By Breed
-                        </button>
-                        <button 
-                            onClick={() => setMethod('weight')}
-                            className={`p-3 rounded-lg ${method === 'weight' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
-                        >
-                            By Weight
-                        </button>
-                        <button 
-                            onClick={() => setMethod('neck')}
-                            className={`p-3 rounded-lg ${method === 'neck' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
-                        >
-                            By Neck Size
-                        </button>
-                    </div>
+    <div className="w-full max-w-2xl mx-auto p-4">
+        <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">Find Your Perfect Fit</h2>
+        
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 justify-center">
+            <button 
+                onClick={() => setMethod('breed')}
+                className={`p-2 sm:p-3 rounded-lg text-sm sm:text-base w-full sm:w-auto ${method === 'breed' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
+            >
+                By Breed
+            </button>
+            <button 
+                onClick={() => setMethod('weight')}
+                className={`p-2 sm:p-3 rounded-lg text-sm sm:text-base w-full sm:w-auto ${method === 'weight' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
+            >
+                By Weight
+            </button>
+            <button 
+                onClick={() => setMethod('neck')}
+                className={`p-2 sm:p-3 rounded-lg text-sm sm:text-base w-full sm:w-auto ${method === 'neck' ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}
+            >
+                By Neck Size
+            </button>
+        </div>
 
-                    <div className="mb-6">
-                        {method === 'breed' && (
-                            <select 
-                                value={selectedBreed}
-                                onChange={(e) => {
-                                    setSelectedBreed(e.target.value);
-                                    setSize(commonBreeds[e.target.value]);
-                                }}
-                                className="w-full p-3 border rounded-lg"
-                            >
-                                <option value="">Select your dog's breed</option>
-                                {Object.keys(commonBreeds).map(breed => (
-                                    <option key={breed} value={breed}>{breed}</option>
-                                ))}
-                            </select>
-                        )}
+        <div className="mb-4">
+            {method === 'breed' && (
+                <select 
+                    value={selectedBreed}
+                    onChange={(e) => {
+                        setSelectedBreed(e.target.value);
+                        setSize(commonBreeds[e.target.value]);
+                    }}
+                    className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
+                >
+                    <option value="">Select your dog's breed</option>
+                    {Object.keys(commonBreeds).map(breed => (
+                        <option key={breed} value={breed}>{breed}</option>
+                    ))}
+                </select>
+            )}
 
-                        {method === 'weight' && (
-                            <input
-                                type="number"
-                                value={weight}
-                                onChange={(e) => {
-                                    setWeight(e.target.value);
-                                    setSize(getSizeByWeight(e.target.value));
-                                }}
-                                placeholder="Enter weight in lbs"
-                                className="w-full p-3 border rounded-lg"
-                            />
-                        )}
+            {method === 'weight' && (
+                <input
+                    type="number"
+                    value={weight}
+                    onChange={(e) => {
+                        setWeight(e.target.value);
+                        setSize(getSizeByWeight(e.target.value));
+                    }}
+                    placeholder="Enter weight in lbs"
+                    className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
+                />
+            )}
 
-                        {method === 'neck' && (
-                            <input
-                                type="number"
-                                value={neckSize}
-                                onChange={(e) => {
-                                    setNeckSize(e.target.value);
-                                    setSize(getSizeByNeck(e.target.value));
-                                }}
-                                placeholder="Enter neck size in inches"
-                                className="w-full p-3 border rounded-lg"
-                            />
-                        )}
-                    </div>
+            {method === 'neck' && (
+                <input
+                    type="number"
+                    value={neckSize}
+                    onChange={(e) => {
+                        setNeckSize(e.target.value);
+                        setSize(getSizeByNeck(e.target.value));
+                    }}
+                    placeholder="Enter neck size in inches"
+                    className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
+                />
+            )}
+        </div>
 
-                    {size && (
-                        <div className="bg-green-50 p-4 rounded-lg">
-                            <div className="text-green-600 mb-2">
-                                <span className="font-medium">Recommended Size:</span>
-                            </div>
-                            <p className="text-lg font-bold text-green-700">{size}</p>
-                            <p className="text-sm text-green-600 mt-2">
-                                {size === 'Small' && 'Perfect for necks 12-16"'}
-                                {size === 'Medium' && 'Perfect for necks 16-21"'}
-                                {size === 'Large' && 'Perfect for necks 21-25"'}
-                            </p>
-                        </div>
-                    )}
+        {size && (
+            <div className="bg-green-50 p-3 sm:p-4 rounded-lg">
+                <div className="text-green-600 mb-2">
+                    <span className="font-medium text-sm sm:text-base">Recommended Size:</span>
                 </div>
-            );
-        }
-
-        ReactDOM.render(<SizeFinder />, document.getElementById('root'));
-    </script>
+                <p className="text-base sm:text-lg font-bold text-green-700">{size}</p>
+                <p className="text-xs sm:text-sm text-green-600 mt-2">
+                    {size === 'Small' && 'Perfect for necks 12-16"'}
+                    {size === 'Medium' && 'Perfect for necks 16-21"'}
+                    {size === 'Large' && 'Perfect for necks 21-25"'}
+                </p>
+            </div>
+        )}
+    </div>
+);
 </body>
 </html>
